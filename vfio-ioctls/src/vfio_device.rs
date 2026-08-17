@@ -1296,6 +1296,7 @@ impl VfioDevice {
             argsz: mem::size_of::<vfio_device_attach_iommufd_pt>() as u32,
             flags: 0,
             pt_id: vfio_iommufd.ioas_id,
+            pasid: 0,
         };
         vfio_syscall::attach_device_iommufd_pt(device, &mut attach_data)?;
 
@@ -1505,6 +1506,7 @@ impl VfioDevice {
                         argsz: mem::size_of::<vfio_device_attach_iommufd_pt>() as u32,
                         flags: 0,
                         pt_id: vfio_iommufd.ioas_id,
+                        pasid: 0,
                     };
                     vfio_syscall::attach_device_iommufd_pt(&device, &mut attach_data)?;
 
@@ -1546,6 +1548,7 @@ impl VfioDevice {
                         argsz: mem::size_of::<vfio_device_attach_iommufd_pt>() as u32,
                         flags: 0,
                         pt_id: viommu.bypass_hwpt_id,
+                        pasid: 0,
                     };
                     vfio_syscall::attach_device_iommufd_pt(&device, &mut attach_data)?;
 
@@ -1593,6 +1596,7 @@ impl VfioDevice {
             argsz: mem::size_of::<vfio_device_attach_iommufd_pt>() as u32,
             flags: 0,
             pt_id: hwpt_id,
+            pasid: 0,
         };
         vfio_syscall::attach_device_iommufd_pt(&self.device, &mut attach_data)?;
 
@@ -1628,6 +1632,7 @@ impl VfioDevice {
             argsz: mem::size_of::<vfio_device_attach_iommufd_pt>() as u32,
             flags: 0,
             pt_id: s1_hwpt_id,
+            pasid: 0,
         };
         vfio_syscall::attach_device_iommufd_pt(&self.device, &mut attach_data)?;
 
@@ -2307,6 +2312,7 @@ impl Drop for VfioDevice {
             let detach_data = vfio_device_detach_iommufd_pt {
                 argsz: mem::size_of::<vfio_device_detach_iommufd_pt>() as u32,
                 flags: 0,
+                pasid: 0,
             };
             vfio_syscall::detach_device_iommufd_pt(&self.device, &detach_data).unwrap();
 
